@@ -1,0 +1,22 @@
+{% extends 'showBase.html.twig' %}
+
+{% block title %}Service
+{% endblock %}
+
+{% block pageTitle %}Service
+{% endblock %}
+{% block buttons %}
+	<div class="button_wrapper">
+		<a class="a--button" href="/service/{{ service.id }}/edit/">Éditer le service</a>
+		<a class="a--button button--error" href="/service/{{ service.id }}/delete/">Supprimer le service</a>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<ul class="list">
+		<li>
+			<span class="list_label">Nom:</span>
+			{{ service.name }}</li>
+	</ul>
+{% endblock %}
+

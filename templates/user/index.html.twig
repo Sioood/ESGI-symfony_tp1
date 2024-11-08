@@ -1,0 +1,31 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block title %}
+	Utilisateurs
+{% endblock %}
+
+{% block pageTitle %}
+	Utilisateurs
+{% endblock %}
+
+{% block button %}
+	<a class="a--button" href="/user/new">Nouvel utilisateur</a>
+
+{% endblock %}
+
+{% block content %}
+	<ul class="item_list">
+		{% for user in users %}
+			<li>
+				<a href="/user/{{ user.id }}">{{ user.firstname }}
+					{{ user.lastname }}</a>
+			</li>
+		{% endfor %}
+
+		{% if users|length == 0 %}
+			<span>Aucun utilisateur trouvé</span>
+		{% endif %}
+
+	</ul>
+{% endblock %}
+

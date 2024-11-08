@@ -1,0 +1,55 @@
+{% extends 'showBase.html.twig' %}
+
+{% block title %}Réservation
+{% endblock %}
+
+{% block pageTitle %}Réservation
+{% endblock %}
+{% block buttons %}
+	<div class="button_wrapper">
+		<a class="a--button" href="/booking/{{ booking.id }}/edit/">Éditer la réservation</a>
+		<a class="a--button button--error" href="/booking/{{ booking.id }}/delete/">Supprimer la réservation</a>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<ul class="list">
+		<li>
+			<span class="list_label">Statut:</span>
+			{{ booking.status }}
+		</li>
+		<li>
+			<span class="list_label">Service:</span>
+			{% if booking.service %}
+				<a href="/service/{{ booking.service.id }}">{{ booking.service.name }}</a>
+			{% else %}
+				Aucun service
+			{% endif %}
+		</li>
+
+		<li>
+			<span class="list_label">Horaires:</span>
+			{{ booking.startDatetime|date('d/m/Y H:i') }}
+			-
+			{{ booking.endDatetime|date('d/m/Y H:i') }}</li>
+		<li>
+			<span class="list_label">Utilisateur:</span>
+			{% if booking.user %}
+				<a href="/user/{{ booking.user.id }}">{{ booking.user.firstname }}
+					{{ booking.user.lastname }}</a>
+			{% else %}
+				Aucun utilisateur
+			{% endif %}
+		</li>
+	</ul>
+
+	<div class="button_wrapper">
+		<form action="{{ path('booking_cancel', {'id': booking.id}) }}" method="post">
+			<button class="button--error" type="submit">Annuler la réservation</button>
+		</form>
+		<form action="{{ path('booking_confirm', {'id': booking.id}) }}" method="post">
+			<button class="button--success" type="submit">Confirmer la réservation</button>
+		</form>
+	</div>
+{% endblock %}
+

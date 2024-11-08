@@ -12,6 +12,22 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="/user">Utilisateurs</a></li>
+                <li><a href="/service">Services</a></li>
+                <li><a href="/booking">Réservations</a></li>
+            </ul>
+        </nav>
+
+        {% for flashType in ['success', 'error'] %}
+            {% for message in app.flashes(flashType) %}
+                <div class="flash flash--{{ flashType }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

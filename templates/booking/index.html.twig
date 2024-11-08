@@ -1,0 +1,72 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block title %}
+	Réservations
+{% endblock %}
+
+{% block pageTitle %}
+	Réservations
+{% endblock %}
+
+{% block button %}
+	<a class="a--button" href="/booking/new">Nouvelle réservation</a>
+{% endblock %}
+
+{% set selectedStatus = app.request.query.get('status') %}
+
+{% block content %}
+	<style>
+		.form_filter {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+		}
+	</style>
+
+	<form class="form_filter" action="{{ path('booking_index') }}">
+		<label for="status">Filtrer par statut :</label>
+		<select name="status">
+			<option value="">Tous</option>
+			{% for status in reservationStatus %}
+				<option value="{{ status.value }}" {% if selectedStatus and selectedStatus == status.value %} selected {% endif %}>
+					{{ status.value }}
+				</option>
+			{% endfor %}
+		</select>
+		<button type="submit">Filtrer</button>
+	</form>
+
+	<ul class="item_list">
+		{% for booking in bookings %}
+			{% if not selectedStatus or booking.status == selectedStatus %}
+				<li>
+					<a href="/booking/{{ booking.id }}">
+						{% if booking.service %}
+							{{ booking.service.name }}
+						{% endif %}
+						{% if booking.status %}
+							({{ booking.status }})
+						{% endif %}
+						{% if booking.user %}
+							-
+							{{ booking.user.firstname }}
+							{{ booking.user.lastname }}
+						{% endif %}
+						-
+						{{ booking.startDatetime|date('d/m/Y H:i') }}
+						-
+						{{ booking.endDatetime|date('d/m/Y H:i') }}
+					</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+
+		{% if bookings|length == 0 %}
+			<span>Aucune réservation trouvée</span>
+		{% endif %}
+
+	</ul>
+{% endblock %}
+

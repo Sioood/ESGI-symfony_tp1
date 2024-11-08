@@ -1,0 +1,26 @@
+{% extends 'indexBase.html.twig' %}
+
+{% block title %}Services
+{% endblock %}
+
+{% block pageTitle %}Services
+{% endblock %}
+{% block button %}
+	<a class="a--button" href="/service/new">Nouveau service</a>
+{% endblock %}
+
+{% block content %}
+	<ul class="item_list">
+		{% for service in services %}
+			<li>
+				<a href="/service/{{ service.id }}">{{ service.name }}</a>
+			</li>
+		{% endfor %}
+
+		{% if services|length == 0 %}
+			<span>Aucun service trouvé</span>
+		{% endif %}
+
+	</ul>
+{% endblock %}
+
